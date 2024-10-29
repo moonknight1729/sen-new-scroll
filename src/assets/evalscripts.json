@@ -1,0 +1,108 @@
+{
+  "sentinel": [
+    {
+      "script": "//VERSION=3\nlet minVal = 0.0;\nlet maxVal = 0.25;\nlet viz = ColorRampVisualizer.createBlueRed(minVal, maxVal);\nfunction evaluatePixel(samples) {\n  let val = samples.B03 * index(samples.B08, samples.B04);\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B03\", \"B04\", \"B08\", \"dataMask\"]\n    }],\n    output: { bands: 4 }\n  }\n}",
+      "name": "True Color",
+      "image": "../../public/images/true-color.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 2: NDVI visualization ...\nlet viz = ColorMapVisualizer.createDefaultColorMap();\n\nfunction evaluatePixel(samples) {\n  let val = index(samples.B08, samples.B04);\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B04\", \"B08\", \"dataMask\"]\n    }],\n    output: {\n      bands: 4\n    }\n  }\n}",
+      "name": "NDVI visualization",
+      "image": "../../public/images/ndvi.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 3: False color infrared ...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizer(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = [samples.B08, samples.B04, samples.B03];\n  val = viz.processList(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B03\", \"B04\", \"B08\", \"dataMask\"]\n    }],\n    output: {\n      bands: 4\n    }\n  }\n}",
+      "name": "False color infrared",
+      "image": "../../public/images/false-color-infrared.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 4 green: ...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B03;\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B03\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": " green",
+      "image": "../../public/images/B04.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 5: ndvi green ...\nlet minVal = 0.0;\nlet maxVal = 0.25;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B03 * index(samples.B08, samples.B04);\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B03\", \"B04\", \"B08\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": "ndvi green",
+      "image": "../../public/images/B04.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 6:NIR ...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B08;\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B08\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": "NIR",
+      "image": "../../public/images/NIR.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 7: RED ...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B04;\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B04\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": "RED",
+      "image": "../../public/images/RED.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 8: B08...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B08;\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B08\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": "B08",
+      "image": "../../public/images/B08.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 9: B04...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B04;\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B04\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": "B04",
+      "image": "../../public/images/B04.png"
+    },
+    {
+      "script": "//VERSION=3\n\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n    let val = samples.B02;\n    val = viz.process(val);\n    val.push(samples.dataMask);\n    return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\n        \"B02\",\n        \"dataMask\"\n      ]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}\n",
+      "name": "Blue",
+      "image": "../../public/images/blue.png"
+    }
+  ],
+
+  "landsat": [
+    {
+      "script": "//VERSION=3\nlet minVal = 0.0;\nlet maxVal = 0.25;\nlet viz = ColorRampVisualizer.createBlueRed(minVal, maxVal);\nfunction evaluatePixel(samples) {\n  let val = samples.B03 * index(samples.B08, samples.B04);\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B03\", \"B04\", \"B08\", \"dataMask\"]\n    }],\n    output: { bands: 4 }\n  }\n}",
+      "name": "True Color",
+      "image": "../../public/images/true-color.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 2: NDVI visualization ...\nlet viz = ColorMapVisualizer.createDefaultColorMap();\n\nfunction evaluatePixel(samples) {\n  let val = index(samples.B08, samples.B04);\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B04\", \"B08\", \"dataMask\"]\n    }],\n    output: {\n      bands: 4\n    }\n  }\n}",
+      "name": "NDVI visualization",
+      "image": "../../public/images/ndvi.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 3: False color infrared ...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizer(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = [samples.B08, samples.B04, samples.B03];\n  val = viz.processList(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B03\", \"B04\", \"B08\", \"dataMask\"]\n    }],\n    output: {\n      bands: 4\n    }\n  }\n}",
+      "name": "False color infrared",
+      "image": "../../public/images/false-color-infrared.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 4 green: ...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B03;\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B03\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": " green",
+      "image": "../../public/images/B04.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 5: ndvi green ...\nlet minVal = 0.0;\nlet maxVal = 0.25;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B03 * index(samples.B08, samples.B04);\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B03\", \"B04\", \"B08\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": "ndvi green",
+      "image": "../../public/images/B04.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 6:NIR ...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B08;\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B08\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": "NIR",
+      "image": "../../public/images/NIR.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 7: RED ...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B04;\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B04\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": "RED",
+      "image": "../../public/images/RED.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 8: B08...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B08;\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B08\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": "B08",
+      "image": "../../public/images/B08.png"
+    },
+    {
+      "script": "//VERSION=3 // Evalscript 9: B04...\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n  let val = samples.B04;\n  val = viz.process(val);\n  val.push(samples.dataMask);\n  return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\"B04\", \"dataMask\"]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}",
+      "name": "B04",
+      "image": "../../public/images/B04.png"
+    },
+    {
+      "script": "//VERSION=3\n\nlet minVal = 0.0;\nlet maxVal = 0.4;\n\nlet viz = new HighlightCompressVisualizerSingle(minVal, maxVal);\n\nfunction evaluatePixel(samples) {\n    let val = samples.B02;\n    val = viz.process(val);\n    val.push(samples.dataMask);\n    return val;\n}\n\nfunction setup() {\n  return {\n    input: [{\n      bands: [\n        \"B02\",\n        \"dataMask\"\n      ]\n    }],\n    output: {\n      bands: 2\n    }\n  }\n}\n",
+      "name": "Blue",
+      "image": "../../public/images/blue.png"
+    }]
+}
+
+  
